@@ -1,23 +1,15 @@
 package com.campuslab.platform.reservations.application.internal.commandservices;
 
-import com.campuslab.platform.u202312188.reservations.domain.model.aggregates.EquipmentReservation;
-import com.campuslab.platform.u202312188.reservations.domain.model.commands.CreateEquipmentReservationCommand;
-import com.campuslab.platform.u202312188.reservations.domain.model.valueobjects.*;
-import com.campuslab.platform.u202312188.reservations.domain.repositories.EquipmentReservationRepository;
-import com.campuslab.platform.u202312188.shared.application.results.Failure;
-import com.campuslab.platform.u202312188.shared.application.results.Result;
-import com.campuslab.platform.u202312188.shared.application.results.Success;
+import com.campuslab.platform.shared.application.results.Failure;
+import com.campuslab.platform.shared.application.results.Result;
+import com.campuslab.platform.shared.application.results.Success;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 
 @Service
 @RequiredArgsConstructor
 public class EquipmentReservationCommandService {
 
-    private final EquipmentReservationRepository reservationRepository;
+    private final com.campuslab.platform.reservations.application.internal.commandservices.EquipmentReservationRepository reservationRepository;
 
 
     @Transactional

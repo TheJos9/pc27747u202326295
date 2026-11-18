@@ -1,17 +1,21 @@
 package com.campuslab.platform.shared.interfaces.rest.handlers;
 
+import HttpStatus.BAD_REQUEST;
 import com.campuslab.platform.shared.interfaces.rest.resources.ErrorResource;
 import com.campuslab.platform.shared.interfaces.rest.resources.ErrorResource;
 import lombok.RequiredArgsConstructor;
 
 import java.awt.image.PixelGrabber;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 @com.campuslab.platform.shared.interfaces.rest.handlers.RestControllerAdvice
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
 
     private final com.campuslab.platform.shared.interfaces.rest.handlers.MessageSource messageSource;
+    private Object HttpStatus;
+    private ResourceBundle LocaleContextHolder;
 
     @com.campuslab.platform.shared.interfaces.rest.handlers.ExceptionHandler(IllegalArgumentException.class)
     public com.campuslab.platform.shared.interfaces.rest.handlers.ResponseEntity<ErrorResource> handleIllegalArgument(IllegalArgumentException ex) {
@@ -23,10 +27,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResource> handleValidationException(MethodArgumentNotValidException ex) {
-        String key = ex.getBindingResult().getFieldErrors().stream()
-                .findFirst()
-                .map(err -> err.getDefaultMessage())
-                .orElse("error.request.malformed");
+        String key = ex.getBindingResult().getClass().isArray();
         String resolvedMessage = resolveMessage(key);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResource(resolvedMessage));
     }
@@ -35,7 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResource> handleMalformedJson(HttpMessageNotReadableException ex) {
         String resolvedMessage = resolveMessage("error.request.malformed");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResource(resolvedMessage));
+        return ResponseEntity.status(BAD_REQUEST).body(new ErrorResource(resolvedMessage));
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
