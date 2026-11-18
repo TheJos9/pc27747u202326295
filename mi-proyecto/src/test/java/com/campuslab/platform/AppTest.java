@@ -1,4 +1,4 @@
-package com.miempresa;
+package com.campuslab.platform;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

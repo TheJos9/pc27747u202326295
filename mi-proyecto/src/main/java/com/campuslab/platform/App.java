@@ -1,4 +1,4 @@
-package com.miempresa;
+package com.campuslab.platform;
 
 /**
  * Hello world!
